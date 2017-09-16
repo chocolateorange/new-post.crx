@@ -1,10 +1,10 @@
 'use strict';
 
-const deepcopy = require('deepcopy'),
-      webpack = require('webpack');
+const deepcopy = require('deepcopy');
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+// eslint-disable-next-line no-unused-vars
 module.exports = function(env) {
   const baseConfig = {
     context: __dirname,

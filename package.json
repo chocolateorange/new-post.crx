@@ -28,13 +28,20 @@
     "extends": "eslint:recommended",
     "env": {
       "browser": true,
+      "es6": true,
       "node": true
     },
+    "globals": {
+      "chrome": true
+    },
     "parserOptions": {
-      "ecmaVersion": 6
+      "ecmaVersion": 2017
     },
     "root": true
   },
+  "eslintIgnore": [
+    "ext"
+  ],
   "private": true,
   "scripts": {
     "build": "\"$(which-chrome Chrome)\" --pack-extension=./ext --pack-extension-key=./ext.pem || \"$(which-chrome Chrome)\" --pack-extension=./ext",
