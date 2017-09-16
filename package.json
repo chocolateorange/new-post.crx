@@ -48,5 +48,9 @@
     "release": "npm run minify && npm run zip",
     "webpack": "webpack --colors --display-error-details --progress",
     "zip": "rimraf ./ext.zip && (cd ./ext && zip -r ../ext.zip ./*)"
+  },
+  "dependencies": {
+    "mustache": "^2.3.0",
+    "sprintf-js": "^1.1.1"
   }
 }
