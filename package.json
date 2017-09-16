@@ -3,6 +3,10 @@
   "description": "create new post by GitHub",
   "version": "1.0.0",
   "author": "sasa+1",
+  "dependencies": {
+    "mustache": "^2.3.0",
+    "sprintf-js": "^1.1.1"
+  },
   "devDependencies": {
     "cpr": "^2.0.2",
     "deepcopy": "^0.6.3",
@@ -49,9 +53,5 @@
     "test": "npm run lint",
     "webpack": "webpack --colors --display-error-details --progress",
     "zip": "rimraf ./ext.zip && (cd ./ext && zip -r ../ext.zip ./*)"
-  },
-  "dependencies": {
-    "mustache": "^2.3.0",
-    "sprintf-js": "^1.1.1"
   }
 }
