@@ -46,6 +46,7 @@
     "minify": "NODE_ENV=production npm run webpack -- --optimize-minimize",
     "prewebpack": "npm run copy",
     "release": "npm run minify && npm run zip",
+    "test": "npm run lint",
     "webpack": "webpack --colors --display-error-details --progress",
     "zip": "rimraf ./ext.zip && (cd ./ext && zip -r ../ext.zip ./*)"
   },
