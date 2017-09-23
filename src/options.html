@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="options.css">
+    <title>new-post options</title>
+  </head>
+  <body>
+    <section class="options">
+      <h1 class="options__title">new-post options</h1>
+
+      <hr class="options__line">
+
+      <label class="options__label">
+        <h2 class="options__subtitle">account</h2>
+        <input id="js-account" type="text" class="options__input" placeholder="chocolateorange">
+      </label>
+
+      <label class="options__label">
+        <h2 class="options__subtitle">repository</h2>
+        <input id="js-repository" type="text" class="options__input" placeholder="chocolateorange.github.io">
+      </label>
+
+      <label class="options__label">
+        <h2 class="options__subtitle">branch</h2>
+        <input id="js-branch" type="text" class="options__input" placeholder="master">
+      </label>
+
+      <label class="options__label">
+        <h2 class="options__subtitle">path</h2>
+        <input id="js-path" type="text" class="options__input" placeholder="_posts/{{ YYYY }}/{{ MM }}/{{ YYYY }}-{{ MM }}-{{ DD }}-{{ No }}.md">
+        <dl class="options__define-list">
+          <dt>{{ YYYY }}</dt>
+          <dd>replace to year</dd>
+          <dt>{{ MM }}</dt>
+          <dd>replace to month</dd>
+          <dt>{{ DD }}</dt>
+          <dd>replace to date</dd>
+          <dt>{{ No }}</dt>
+          <dd>replace to number</dd>
+        </dl>
+      </label>
+
+      <hr class="options__line">
+
+      <label class="options__label">
+        <h2 class="options__subtitle">template</h2>
+        <textarea id="js-template" class="options__textarea" rows="8"></textarea>
+      </label>
+
+      <hr class="options__line">
+
+      <label class="options__label">
+        <input id="js-preview" type="text" class="options__input" readonly>
+      </label>
+
+      <hr class="options__line">
+
+      <div class="options__button-area">
+        <input id="js-revert" type="button" value="revert">
+        <input id="js-save" type="button" value="save">
+      </div>
+
+    </section>
+
+    <script src="options.js"></script>
+  </body>
+</html>

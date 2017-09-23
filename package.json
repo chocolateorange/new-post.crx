@@ -1,8 +1,12 @@
 {
   "name": "new-post",
   "description": "create new post by GitHub",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "sasa+1",
+  "dependencies": {
+    "mustache": "^2.3.0",
+    "sprintf-js": "^1.1.1"
+  },
   "devDependencies": {
     "cpr": "^2.0.2",
     "deepcopy": "^0.6.3",
@@ -24,16 +28,23 @@
     "extends": "eslint:recommended",
     "env": {
       "browser": true,
+      "es6": true,
       "node": true
     },
+    "globals": {
+      "chrome": true
+    },
     "parserOptions": {
-      "ecmaVersion": 6
+      "ecmaVersion": 2017
     },
     "root": true
   },
+  "eslintIgnore": [
+    "ext"
+  ],
   "private": true,
   "scripts": {
-    "build": "\"$(which-chrome Chrome)\" --pack-extension=./ext --pack-extension-key=./ext.pem || \"$(which-chrome Chrome)\" --pack-extension=./ext",
+    "build": "\"$(which-chrome Chrome)\" --headless --disable-gpu --pack-extension=./ext --pack-extension-key=./ext.pem || \"$(which-chrome Chrome)\" --headless --pack-extension=./ext",
     "chrome": "\"$(which-chrome Chrome)\" --user-data-dir=./env --load-extension=./ext --disable-default-apps --disable-translate --no-default-browser-check --no-first-run",
     "clean": "rimraf './ext/**/*'",
     "compile": "npm run webpack",
@@ -46,11 +57,8 @@
     "minify": "NODE_ENV=production npm run webpack -- --optimize-minimize",
     "prewebpack": "npm run copy",
     "release": "npm run minify && npm run zip",
+    "test": "npm run lint",
     "webpack": "webpack --colors --display-error-details --progress",
     "zip": "rimraf ./ext.zip && (cd ./ext && zip -r ../ext.zip ./*)"
-  },
-  "dependencies": {
-    "mustache": "^2.3.0",
-    "sprintf-js": "^1.1.1"
   }
 }

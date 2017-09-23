@@ -1,0 +1,55 @@
+dist:
+  trusty
+
+sudo:
+  false
+
+language:
+  node_js
+
+node_js:
+  - "4"
+  - "5"
+  - "6"
+  - "7"
+  - "8"
+  - "lts/*"
+
+git:
+  depth:
+    3
+
+cache:
+  directories:
+    - node_modules
+
+addons:
+  chrome:
+    stable
+
+before_deploy:
+  - npm run clean
+  - npm run compile
+  - npm run build
+
+deploy:
+  provider:
+    releases
+  api_key:
+    secure:
+      QkiBusDK2TJCZhUkIOEgGi72o6Pxc3vPn9N7YVgg3hvoBZmO/927Vb9jmVPnVXsGS3PEhnmwKBycuB6MwuScYQvJhjZZppCgH18JCkc5Tg9mqeH8ExZp7rvFWL5II+l30dcNytPuGYqV/7DiNkuJFtHAbuNYXkg5fs0TNCRG2aEIQ6/16Jn65jU2gyMxs5fTmyjx1cLLnHZ3Z9zJ1GEqwploJTOHmXHhvVpdCDVy+LpoJhT9suBrNq6gSL0LvjS080spMgzQNridf8ZmRK9wfZarUQrmfkKjxdRaygsnBZHGC/KtrRNzlZAuXmTs/beFrI2PCJfuaMdqDmrVd4EDGqHM6AAs1gXqTQBfeOUGebKAfQoQk6wcABETa2FGsAIep0D9Te1EFLBuRee8WI1p6sZ19PumxzR7VYqbMZGvUeLuQxCZR/BuVesm3GKz5eV/rZPyMJotRcNgR285RR8MN+0sHeElM5HeaeVA4iBctP8KInXJ50bi84HUx7kne2Dlin3tttH/fxxHPzEjjeswzKEOl2/hTVGeBX9paFnYOlfVCsTSotQmk9YD3f4ilGsPIszbF22DWB4wRLJLh74NiqSxfjSM89zAN1fn/kLPVn/BPZHHpKaZyahKzjuqDYCpenkugO1spUle0c1EygUT4dsgEc4Nw+w69dTD0pVfhqk=
+  file:
+    - ext.crx
+  on:
+    all_branches:
+      true
+    repo:
+      chocolateorange/new-post.crx
+    tags:
+      true
+  skip_cleanup:
+    true
+
+notifications:
+  email:
+    false

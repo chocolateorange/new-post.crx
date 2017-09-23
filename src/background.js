@@ -1,32 +1,13 @@
 'use strict';
 
 const {
-  render,
-} = require('mustache');
+  loadValues,
+} = require('./storage');
 
 const {
-  sprintf,
-} = require('sprintf-js');
-
-const blobURI = 'https://github.com/chocolateorange/chocolateorange.github.io/blob/master/_posts/{{ YYYY }}/{{ MM }}/{{ YYYY }}-{{ MM }}-{{ DD }}-{{ No }}.md',
-      newURI = 'https://github.com/chocolateorange/chocolateorange.github.io/new/master/?filename=_posts/{{ YYYY }}/{{ MM }}/{{ YYYY }}-{{ MM }}-{{ DD }}-{{ No }}.md';
-
-/**
- * format URI template
- *
- * @param {string} template
- * @param {Date} date
- * @param {number} number
- * @return {string}
- */
-function format(template, date, number) {
-  return render(template, {
-    YYYY: date.getFullYear(),
-    MM: sprintf('%02d', date.getMonth() + 1),
-    DD: sprintf('%02d', date.getDate()),
-    No: sprintf('%02d', number),
-  });
-}
+  createBlobURI,
+  createNewURI,
+} = require('./text');
 
 /**
  * check for post is exist
@@ -36,12 +17,12 @@ function format(template, date, number) {
  * @throws {TypeError}
  * @return {Promise}
  */
-function existsPost(date, number) {
+async function existsPost(date, number) {
   const options = {
     method: 'HEAD',
   };
 
-  const URI = format(blobURI, date, number);
+  const URI = createBlobURI(await loadValues(), date, number);
 
   return fetch(URI, options).then(
     (res) => res.ok
@@ -52,11 +33,37 @@ function existsPost(date, number) {
  * event handler for onClicked
  */
 async function onClicked() {
+  const values = await loadValues(),
+        keys = Object.keys(values);
+
+  const hasConfig =
+    keys
+      .filter(
+        (key) => (key !== 'template')
+      )
+      .every(
+        (key) => (values[key] !== '')
+      );
+
+  if (!hasConfig || keys.length === 0) {
+    return await new Promise(function(resolve) {
+      chrome.runtime.openOptionsPage(resolve);
+    });
+  }
+
   const now = new Date();
+
+  const caches = await new Promise(function(resolve) {
+    // get last number
+    // return 1 if last number is not found
+    chrome.storage.local.get({
+      number: 1,
+    }, resolve);
+  });
 
   let number;
 
-  for (let i = 1; i < 100; ++i) {
+  for (let i = caches.number; i < 100; ++i) {
     if (!await existsPost(now, i)) {
       number = i;
 
@@ -64,7 +71,14 @@ async function onClicked() {
     }
   }
 
-  const targetURI = format(newURI, now, number);
+  // cache last number
+  await new Promise(function(resolve) {
+    chrome.storage.local.set({
+      number,
+    }, resolve);
+  });
+
+  const targetURI = createNewURI(await loadValues(), now, number);
 
   const [
     tab = null,
@@ -87,3 +101,16 @@ async function onClicked() {
 }
 
 chrome.browserAction.onClicked.addListener(onClicked);
+
+/**
+ * event handler for onStartup
+ */
+async function onStartup() {
+  // NOTE: similar to sessionStorage
+  // https://stackoverflow.com/a/39501597
+  await new Promise(function(resolve) {
+    chrome.storage.local.remove('number', resolve);
+  });
+}
+
+chrome.runtime.onStartup.addListener(onStartup);

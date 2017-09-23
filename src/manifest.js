@@ -35,7 +35,10 @@ module.exports = function() {
       persistent: false,
     },
 
+    options_page: 'options.html',
+
     permissions: [
+      'storage',
       'tabs',
       'https://github.com/*',
     ],
