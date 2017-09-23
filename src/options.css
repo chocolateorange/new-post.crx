@@ -1,0 +1,87 @@
+@charset "utf-8";
+
+html, body {
+  background-color: #eeeeee;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.options {
+  background-color: #ffffff;
+  border-radius: 3px;
+  border: 1px solid #cccccc;
+  margin: 16px;
+}
+
+.options__title {
+  font-weight: normal;
+  margin: 8px 0;
+  text-align: center;
+}
+
+.options__line {
+  border: none;
+  border-bottom: 1px solid #cccccc;
+  font-weight: normal;
+  margin: 8px 0;
+  text-align: center;
+}
+
+.options__label {
+  display: block;
+  margin: 0 16px;
+}
+.options__label + .options__label {
+  margin-top: 16px;
+}
+.options__label:last-child {
+  margin-bottom: 8px;
+}
+
+.options__subtitle {
+  font-weight: normal;
+  margin: 0 0 8px 0;
+}
+
+.options__input {
+  box-sizing: border-box;
+  font-family: Inconsolata, Consolas, Monaco, Menlo, monospace;
+  width: 100%;
+}
+
+.options__textarea {
+  border: 1px solid #cccccc;
+  box-sizing: border-box;
+  font-family: Inconsolata, Consolas, Monaco, Menlo, monospace;
+  width: 100%;
+}
+
+.options__define-list {
+  margin: 8px 0;
+}
+
+.options__define-list dt {
+  background-color: #eeeeee;
+  font-family: Inconsolata, Consolas, Monaco, Menlo, monospace;
+  padding: 2px;
+}
+
+.options__define-list dd {
+  margin-left: 40px;
+}
+
+.options__define-list dt + dd {
+  margin-bottom: 8px;
+}
+
+.options__define-list dd:last-of-type {
+  margin-bottom: 0;
+}
+
+.options__button-area {
+  margin: 0 8px 8px 8px;
+  text-align: right;
+}

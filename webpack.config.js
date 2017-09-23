@@ -41,6 +41,7 @@ module.exports = function(env) {
     Object.assign({}, deepcopy(baseConfig), {
       entry: {
         'background': `${__dirname}/src/background.js`,
+        'options': `${__dirname}/src/options.js`,
       },
       output: {
         chunkFilename: 'chunk-[id]-[hash].js',
