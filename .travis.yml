@@ -43,6 +43,8 @@ deploy:
   on:
     all_branches:
       true
+    node:
+      "8"
     repo:
       chocolateorange/new-post.crx
     tags:
