@@ -1,7 +1,7 @@
 {
   "name": "new-post",
   "description": "create new post by GitHub",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "sasa+1",
   "dependencies": {
     "mustache": "^2.3.0",
