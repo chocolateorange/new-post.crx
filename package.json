@@ -44,7 +44,7 @@
   ],
   "private": true,
   "scripts": {
-    "build": "\"$(which-chrome Chrome)\" --headless --disable-gpu --pack-extension=./ext --pack-extension-key=./ext.pem || \"$(which-chrome Chrome)\" --headless --pack-extension=./ext",
+    "build": "\"$(which-chrome Chrome)\" --pack-extension=./ext --pack-extension-key=./ext.pem || \"$(which-chrome Chrome)\" --pack-extension=./ext",
     "chrome": "\"$(which-chrome Chrome)\" --user-data-dir=./env --load-extension=./ext --disable-default-apps --disable-translate --no-default-browser-check --no-first-run",
     "clean": "rimraf './ext/**/*'",
     "compile": "npm run webpack",
