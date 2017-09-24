@@ -30,7 +30,7 @@ addons:
 before_deploy:
   - npm run clean
   - npm run compile
-  - npm run build
+  - xvfb-run npm run build
 
 deploy:
   provider:
