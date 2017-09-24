@@ -30,6 +30,7 @@ module.exports = function() {
     author,
     background: {
       scripts: [
+        'vendor.js',
         'background.js',
       ],
       persistent: false,

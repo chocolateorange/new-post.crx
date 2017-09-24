@@ -1,6 +1,7 @@
 'use strict';
 
-const deepcopy = require('deepcopy');
+const deepcopy = require('deepcopy'),
+      webpack = require('webpack');
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
@@ -42,6 +43,10 @@ module.exports = function(env) {
       entry: {
         'background': `${__dirname}/src/background.js`,
         'options': `${__dirname}/src/options.js`,
+        'vendor': [
+          'mustache',
+          'sprintf-js',
+        ],
       },
       output: {
         chunkFilename: 'chunk-[id]-[hash].js',
@@ -50,6 +55,12 @@ module.exports = function(env) {
         publicPath: './',
       },
       target: 'web',
+      plugins: [
+        new webpack.optimize.CommonsChunkPlugin({
+          name: 'vendor',
+          minChunks: Infinity,
+        }),
+      ],
     }),
   ];
 };
