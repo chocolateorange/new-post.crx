@@ -54,7 +54,14 @@ module.exports = function(env) {
             exclude: /node_modules/,
             test: /\.vue$/,
             use: [
-              { loader: 'vue-loader' },
+              {
+                loader: 'vue-loader',
+                options: {
+                  loaders: {
+                    js: 'eslint-loader',
+                  },
+                },
+              },
             ],
           },
         ],
