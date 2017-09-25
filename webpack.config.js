@@ -71,6 +71,14 @@ module.exports = function(env) {
           name: 'vendor',
           minChunks: Infinity,
         }),
+        new webpack.BannerPlugin({
+          banner: [
+            '@license Copyright(c) 2017 sasa+1',
+            'Released under the MIT license.',
+          ].join('\n'),
+          entryOnly: true,
+          raw: false,
+        }),
       ],
     }),
   ];
