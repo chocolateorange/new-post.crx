@@ -48,6 +48,17 @@ module.exports = function(env) {
           'sprintf-js',
         ],
       },
+      module: {
+        rules: [
+          {
+            exclude: /node_modules/,
+            test: /\.vue$/,
+            use: [
+              { loader: 'vue-loader' },
+            ],
+          },
+        ],
+      },
       output: {
         chunkFilename: 'chunk-[id]-[hash].js',
         filename: '[name].js',
