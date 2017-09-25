@@ -65,6 +65,13 @@ module.exports = function(env) {
         path: `${__dirname}/ext/`,
         publicPath: './',
       },
+      resolve: {
+        extensions: [
+          '.js',
+          '.json',
+          '.vue',
+        ],
+      },
       target: 'web',
       plugins: [
         new webpack.optimize.CommonsChunkPlugin({
