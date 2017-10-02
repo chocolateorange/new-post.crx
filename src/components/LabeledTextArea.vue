@@ -34,6 +34,15 @@ export default {
       this.$emit('input', event.target.value);
     },
   },
+  /**
+   * life cycle method
+   */
+  created() {
+    // HACK: sync value to DOM
+    this.$watch('value',
+      (curr) => this.$refs.textarea.value = curr
+    );
+  },
 }
 </script>
 
