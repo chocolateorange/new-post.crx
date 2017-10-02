@@ -10,7 +10,6 @@
     "vuex": "^2.4.0"
   },
   "devDependencies": {
-    "cpr": "^2.0.2",
     "css-loader": "^0.28.7",
     "deepcopy": "^0.6.3",
     "eslint": "^4.4.1",
@@ -19,7 +18,6 @@
     "fixpack": "^2.3.1",
     "karma-chrome-launcher": "^2.0.0",
     "raw-loader": "^0.5.1",
-    "rimraf": "^2.6.1",
     "val-loader": "^1.0.2",
     "vue-loader": "^13.0.5",
     "vue-template-compiler": "^2.4.4",
@@ -52,21 +50,6 @@
   ],
   "private": true,
   "scripts": {
-    "build": "\"$(which-chrome Chrome)\" --pack-extension=./ext --pack-extension-key=./ext.pem || \"$(which-chrome Chrome)\" --pack-extension=./ext",
-    "chrome": "\"$(which-chrome Chrome)\" --user-data-dir=./env --load-extension=./ext --disable-default-apps --disable-translate --no-default-browser-check --no-first-run",
-    "clean": "rimraf './ext/**/*'",
-    "compile": "npm run webpack",
-    "copy": "cpr ./src ./ext --filter '\\.js$' --overwrite",
-    "develop": "npm run webpack -- --devtool inline-source-map --watch",
-    "eslint": "eslint",
-    "export": "git archive --worktree-attributes HEAD | tar x - -C",
-    "fixpack": "fixpack",
-    "lint": "npm run eslint -- --cache .",
-    "minify": "NODE_ENV=production npm run webpack -- --optimize-minimize",
-    "prewebpack": "npm run copy",
-    "release": "npm run minify && npm run zip",
-    "test": "npm run lint",
-    "webpack": "webpack --colors --display-error-details --progress",
-    "zip": "rimraf ./ext.zip && (cd ./ext && zip -r ../ext.zip ./*)"
+    "test": "make lint"
   }
 }
