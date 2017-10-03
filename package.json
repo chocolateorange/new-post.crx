@@ -1,22 +1,26 @@
 {
   "name": "new-post",
   "description": "create new post by GitHub",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "author": "sasa+1",
   "dependencies": {
     "mustache": "^2.3.0",
-    "sprintf-js": "^1.1.1"
+    "sprintf-js": "^1.1.1",
+    "vue": "^2.4.4",
+    "vuex": "^2.4.0"
   },
   "devDependencies": {
-    "cpr": "^2.0.2",
+    "css-loader": "^0.28.7",
     "deepcopy": "^0.6.3",
     "eslint": "^4.4.1",
+    "eslint-loader": "^1.9.0",
     "extract-text-webpack-plugin": "^2.1.0",
     "fixpack": "^2.3.1",
     "karma-chrome-launcher": "^2.0.0",
     "raw-loader": "^0.5.1",
-    "rimraf": "^2.6.1",
     "val-loader": "^1.0.2",
+    "vue-loader": "^13.0.5",
+    "vue-template-compiler": "^2.4.4",
     "webpack": "^2.3.3",
     "which-chrome": "^0.1.0"
   },
@@ -35,30 +39,17 @@
       "chrome": true
     },
     "parserOptions": {
-      "ecmaVersion": 2017
+      "ecmaVersion": 2017,
+      "sourceType": "module"
     },
     "root": true
   },
   "eslintIgnore": [
+    "env",
     "ext"
   ],
   "private": true,
   "scripts": {
-    "build": "\"$(which-chrome Chrome)\" --headless --disable-gpu --pack-extension=./ext --pack-extension-key=./ext.pem || \"$(which-chrome Chrome)\" --headless --pack-extension=./ext",
-    "chrome": "\"$(which-chrome Chrome)\" --user-data-dir=./env --load-extension=./ext --disable-default-apps --disable-translate --no-default-browser-check --no-first-run",
-    "clean": "rimraf './ext/**/*'",
-    "compile": "npm run webpack",
-    "copy": "cpr ./src ./ext --filter '\\.js$' --overwrite",
-    "develop": "npm run webpack -- --devtool inline-source-map --watch",
-    "eslint": "eslint",
-    "export": "git archive --worktree-attributes HEAD | tar x - -C",
-    "fixpack": "fixpack",
-    "lint": "npm run eslint -- --cache .",
-    "minify": "NODE_ENV=production npm run webpack -- --optimize-minimize",
-    "prewebpack": "npm run copy",
-    "release": "npm run minify && npm run zip",
-    "test": "npm run lint",
-    "webpack": "webpack --colors --display-error-details --progress",
-    "zip": "rimraf ./ext.zip && (cd ./ext && zip -r ../ext.zip ./*)"
+    "test": "make lint"
   }
 }

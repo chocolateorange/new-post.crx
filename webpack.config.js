@@ -1,6 +1,7 @@
 'use strict';
 
-const deepcopy = require('deepcopy');
+const deepcopy = require('deepcopy'),
+      webpack = require('webpack');
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
@@ -42,6 +43,28 @@ module.exports = function(env) {
       entry: {
         'background': `${__dirname}/src/background.js`,
         'options': `${__dirname}/src/options.js`,
+        'vendor': [
+          'mustache',
+          'sprintf-js',
+        ],
+      },
+      module: {
+        rules: [
+          {
+            exclude: /node_modules/,
+            test: /\.vue$/,
+            use: [
+              {
+                loader: 'vue-loader',
+                options: {
+                  loaders: {
+                    js: 'eslint-loader',
+                  },
+                },
+              },
+            ],
+          },
+        ],
       },
       output: {
         chunkFilename: 'chunk-[id]-[hash].js',
@@ -49,7 +72,28 @@ module.exports = function(env) {
         path: `${__dirname}/ext/`,
         publicPath: './',
       },
+      resolve: {
+        extensions: [
+          '.js',
+          '.json',
+          '.vue',
+        ],
+      },
       target: 'web',
+      plugins: [
+        new webpack.optimize.CommonsChunkPlugin({
+          name: 'vendor',
+          minChunks: Infinity,
+        }),
+        new webpack.BannerPlugin({
+          banner: [
+            '@license Copyright(c) 2017 sasa+1',
+            'Released under the MIT license.',
+          ].join('\n'),
+          entryOnly: true,
+          raw: false,
+        }),
+      ],
     }),
   ];
 };

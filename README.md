@@ -4,6 +4,16 @@
 
 create new post by GitHub
 
+## Make targets
+
+execute below:
+
+```console
+$ make
+```
+
+and see targets and descriptions.
+
 ## License
 
 The MIT license.

@@ -28,9 +28,7 @@ addons:
     stable
 
 before_deploy:
-  - npm run clean
-  - npm run compile
-  - npm run build
+  - xvfb-run make clean compile build
 
 deploy:
   provider:
@@ -43,6 +41,8 @@ deploy:
   on:
     all_branches:
       true
+    node:
+      "8"
     repo:
       chocolateorange/new-post.crx
     tags:
