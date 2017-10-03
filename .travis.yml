@@ -28,9 +28,7 @@ addons:
     stable
 
 before_deploy:
-  - npm run clean
-  - npm run compile
-  - xvfb-run npm run build
+  - xvfb-run make clean compile build
 
 deploy:
   provider:
