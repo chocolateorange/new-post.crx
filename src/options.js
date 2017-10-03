@@ -4,7 +4,7 @@ import Vuex from 'vuex';
 import {
   loadValues,
   saveValues,
-} from './storage';
+} from './modules/storage';
 
 import App from './components/App';
 
