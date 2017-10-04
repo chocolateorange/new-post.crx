@@ -20,7 +20,7 @@ module.exports = function(env) {
         rules: [
           {
             exclude: /node_modules/,
-            test: /manifest.js$/,
+            test: /manifest\.js$/,
             use: ExtractTextPlugin.extract({
               use: [
                 { loader: 'raw-loader' },
