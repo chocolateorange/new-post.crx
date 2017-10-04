@@ -75,6 +75,7 @@ module.exports = function(env) {
         new webpack.BannerPlugin({
           banner: [
             '@license Copyright(c) 2017 sasa+1',
+            'https://github.com/chocolateorange/new-post.crx',
             'Released under the MIT license.',
           ].join('\n'),
           entryOnly: true,
