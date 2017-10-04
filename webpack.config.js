@@ -52,16 +52,10 @@ module.exports = function(env) {
         rules: [
           {
             exclude: /node_modules/,
-            test: /\.vue$/,
+            include: /options\.js/,
+            test: /\.js$/,
             use: [
-              {
-                loader: 'vue-loader',
-                options: {
-                  loaders: {
-                    js: 'eslint-loader',
-                  },
-                },
-              },
+              { loader: 'babel-loader' },
             ],
           },
         ],
@@ -71,13 +65,6 @@ module.exports = function(env) {
         filename: '[name].js',
         path: `${__dirname}/ext/`,
         publicPath: './',
-      },
-      resolve: {
-        extensions: [
-          '.js',
-          '.json',
-          '.vue',
-        ],
       },
       target: 'web',
       plugins: [
