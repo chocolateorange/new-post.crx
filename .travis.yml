@@ -28,7 +28,7 @@ addons:
     stable
 
 before_deploy:
-  - xvfb-run make clean compile build
+  - xvfb-run make clean minify build
 
 deploy:
   provider:
