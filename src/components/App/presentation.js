@@ -2,6 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 
+import Definitions from '../Definitions';
+import HorizontalLine from '../HorizontalLine';
+import LabeledInput from '../LabeledInput';
+import LabeledTextArea from '../LabeledTextArea';
+import TitleHeader from '../TitleHeader';
+
 import style from './index.css';
 
 const cx = classNames.bind(style);
