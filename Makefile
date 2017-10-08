@@ -12,10 +12,9 @@ all: ## show targets
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 .PHONY: build
-build: opts1 := --pack-extension=./ext --pack-extension-key=./ext.pem
-build: opts2 := --pack-extension=./ext
+build: flags := --pack-extension=./ext
 build: ## build crx file
-	"$$(which-chrome Chrome)" $(opts1) || "$$(which-chrome Chrome)" $(opts2)
+	"$$(which-chrome Chrome)" $(flags) --pack-extension-key=./ext.pem || "$$(which-chrome Chrome)" $(flags)
 
 .PHONY: clean
 clean: ## remove compiled files
@@ -27,7 +26,8 @@ compile: ## compile JavaScript
 	$(JSC) $(JSFLAGS)
 
 .PHONY: copy
-copy: flags := --archive --recursive --exclude '*.js'
+copy: excludes := '*.js' 'components' 'modules' 'redux'
+copy: flags := --archive --recursive $(addprefix --exclude , $(excludes))
 copy: ## copy asset files
 	rsync $(flags) ./src/ ./ext
 
@@ -46,6 +46,7 @@ lint: ## lint JavaScript
 	eslint --cache .
 
 .PHONY: minify
+minify: copy
 minify: export NODE_ENV := production
 minify: JSFLAGS += --optimize-minimize
 minify: ## minify JavaScript
