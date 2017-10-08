@@ -18,7 +18,7 @@ build: ## build crx file
 
 .PHONY: clean
 clean: ## remove compiled files
-	-$(RM) -r ./ext/*
+	-$(RM) -r ./ext/* ./ext.crx
 
 .PHONY: compile
 compile: copy
