@@ -1,77 +1,65 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import {
+  combineReducers,
+  createStore,
+} from 'redux';
+
+import {
+  Provider,
+} from 'react-redux';
 
 import {
   loadValues,
-  saveValues,
 } from './modules/storage';
+
+import {
+  reducer as configReducer,
+} from './redux/config';
+
+import {
+  reducer as buttonReducer,
+} from './redux/button';
 
 import App from './components/App';
 
-Vue.use(Vuex);
+(async function(){
 
-const actions = {
-  /**
-   * load configs from chrome.storage
-   *
-   * @return {Promise}
-   */
-  async loadConfigs() {
-    return await loadValues();
-  },
-  /**
-   * save configs to chrome.storage
-   *
-   * @param {Object} context
-   * @param {Object} values
-   * @return {Promise}
-   */
-  async saveConfigs({ getters }, values) {
-    return await saveValues(
-      Object.assign({}, getters.configs, values)
-    );
-  },
-  /**
-   * update store configs
-   *
-   * @param {Object} context
-   * @param {Object} configs
-   */
-  updateConfigs({ commit }, configs) {
-    commit('setConfigs', { configs });
-  },
-};
+  const reducers = combineReducers({
+    button: buttonReducer,
+    config: configReducer,
+  });
 
-const getters = {
-  configs: (state) => state.configs,
-};
+  const initialState = {
+    config: await loadValues(),
+  };
 
-const mutations = {
-  setConfigs(state, payload) {
-    Object.assign(state.configs, payload.configs);
-  },
-};
+  let devToolsEnhancer;
 
-const state = {
-  configs: {
-    account: '',
-    branch: '',
-    path: '',
-    repository: '',
-    template: '',
-  },
-};
+  //if (process.env.NODE_ENV !== 'production') {
+    devToolsEnhancer = require('remote-redux-devtools').default;
+  //}
 
-// eslint-disable-next-line no-unused-vars
-const app = new Vue({
-  el: '#app',
-  store: new Vuex.Store({
-    actions,
-    getters,
-    mutations,
-    state,
-  }),
-  render(createElement) {
-    return createElement(App);
-  },
-});
+  const store = createStore(
+    reducers,
+    initialState,
+    devToolsEnhancer({
+      realtime: true,
+      actionSanitizer(action) {
+        // serialize Symbol
+        return (typeof action.type === 'symbol') ? Object.assign({}, action, {
+          type: String(action.type).slice(7, -1),
+        }) : action;
+      },
+    })
+  );
+
+  ReactDOM.render(
+    <Provider store={store}>
+      <App />
+    </Provider>,
+    document.getElementById('app')
+  );
+
+}());

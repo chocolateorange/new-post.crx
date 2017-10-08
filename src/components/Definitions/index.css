@@ -1,0 +1,21 @@
+:local(.dl) {
+  margin: 8px 16px;
+}
+
+:local(.dl > .dt) {
+  background-color: #eeeeee;
+  font-family: Inconsolata, Consolas, Monaco, Menlo, monospace;
+  padding: 2px;
+}
+
+:local(.dl > .dd) {
+  margin-left: 40px;
+}
+
+:local(.dl > .dt + .dd) {
+  margin-bottom: 8px;
+}
+
+:local(.dl > .dd:last-of-type) {
+  margin-bottom: 0;
+}
