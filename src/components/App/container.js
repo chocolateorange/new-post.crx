@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import {
   connect,
@@ -62,7 +61,8 @@ function mapDispatchToProps(dispatch) {
           }))
         );
       } catch(e) {
-        console.error(e);
+        // eslint-disable-next-line no-console
+        console.error(e.stack || e);
       }
 
       dispatch(enableRevertButton());
@@ -92,6 +92,7 @@ function mapDispatchToProps(dispatch) {
           template,
         });
       } catch(e) {
+        // eslint-disable-next-line no-console
         console.error(e.stack || e);
       }
 
