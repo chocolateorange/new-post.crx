@@ -1,0 +1,41 @@
+:local(.options) {
+  background-color: #ffffff;
+  border-radius: 3px;
+  border: 1px solid #cccccc;
+  margin: 16px;
+}
+
+:local(.options .title-header) {
+  margin: 8px 0;
+}
+
+:local(.options .horizontal-line) {
+  margin: 8px 0;
+}
+
+:local(.options .labeled-input) {
+  margin: 0 16px;
+}
+:local(.options .labeled-input + .labeled-input) {
+  margin-top: 16px;
+}
+:local(.options .labeled-input:last-of-type) {
+  margin-bottom: 8px;
+}
+
+:local(.options .labeled-textarea) {
+  margin-top: 16px;
+}
+
+:local(.options .button-area) {
+  margin: 0 8px 8px 8px;
+  text-align: right;
+}
+
+:local(.options .button-area > input[type="button"]) {
+  margin-left: 8px;
+}
+
+:local(.options .button-area > input[type="button"]:first-of-type) {
+  margin-left: 0;
+}

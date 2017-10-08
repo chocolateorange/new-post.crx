@@ -1,0 +1,14 @@
+:local(.label) {
+  display: block;
+}
+
+:local(.title) {
+  font-weight: normal;
+  margin: 0 0 8px 0;
+}
+
+:local(.input) {
+  box-sizing: border-box;
+  font-family: Inconsolata, Consolas, Monaco, Menlo, monospace;
+  width: 100%;
+}

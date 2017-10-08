@@ -2,12 +2,12 @@
 
 const {
   loadValues,
-} = require('./storage');
+} = require('./modules/storage');
 
 const {
   createBlobURI,
   createNewURI,
-} = require('./text');
+} = require('./modules/text');
 
 /**
  * check for post is exist

@@ -3,7 +3,10 @@
 const deepcopy = require('deepcopy'),
       webpack = require('webpack');
 
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin'),
+      UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+
+const isProduction = (process.env.NODE_ENV === 'production');
 
 // eslint-disable-next-line no-unused-vars
 module.exports = function(env) {
@@ -20,7 +23,7 @@ module.exports = function(env) {
         rules: [
           {
             exclude: /node_modules/,
-            test: /manifest.js$/,
+            test: /manifest\.js$/,
             use: ExtractTextPlugin.extract({
               use: [
                 { loader: 'raw-loader' },
@@ -52,14 +55,28 @@ module.exports = function(env) {
         rules: [
           {
             exclude: /node_modules/,
-            test: /\.vue$/,
+            include: /components|options\.js/,
+            test: /\.js$/,
             use: [
               {
-                loader: 'vue-loader',
+                loader: 'babel-loader',
                 options: {
-                  loaders: {
-                    js: 'eslint-loader',
-                  },
+                  cacheDirectory: true,
+                },
+              },
+            ],
+          },
+          {
+            exclude: /node_modules/,
+            include: /components/,
+            test: /\.css$/,
+            use: [
+              { loader: 'style-loader' },
+              {
+                loader: 'css-loader',
+                options: {
+                  localIdentName: '[path][name]__[local]__[hash:base64]',
+                  modules: true,
                 },
               },
             ],
@@ -72,14 +89,6 @@ module.exports = function(env) {
         path: `${__dirname}/ext/`,
         publicPath: './',
       },
-      resolve: {
-        extensions: [
-          '.js',
-          '.json',
-          '.vue',
-        ],
-      },
-      target: 'web',
       plugins: [
         new webpack.optimize.CommonsChunkPlugin({
           name: 'vendor',
@@ -88,12 +97,25 @@ module.exports = function(env) {
         new webpack.BannerPlugin({
           banner: [
             '@license Copyright(c) 2017 sasa+1',
+            'https://github.com/chocolateorange/new-post.crx',
             'Released under the MIT license.',
           ].join('\n'),
           entryOnly: true,
           raw: false,
         }),
-      ],
+      ].concat(
+        (isProduction) ? [
+          new webpack.EnvironmentPlugin([
+            'NODE_ENV',
+          ]),
+          new webpack.optimize.ModuleConcatenationPlugin(),
+          new UglifyJSPlugin({
+            test: /\.js$/,
+            parallel: true,
+          }),
+        ] : []
+      ),
+      target: 'web',
     }),
   ];
 };
