@@ -38,14 +38,16 @@ import App from './components/App';
 
   let devToolsEnhancer;
 
-  //if (process.env.NODE_ENV !== 'production') {
+  // NOTE: don't cache condition. UglifyJSPlugin cannot eliminate module
+  if (process.env.NODE_ENV !== 'production') {
     devToolsEnhancer = require('remote-redux-devtools').default;
-  //}
+  }
 
-  const store = createStore(
-    reducers,
-    initialState,
-    devToolsEnhancer({
+  const store =
+    // NOTE: don't cache condition. UglifyJSPlugin cannot eliminate module
+    (process.env.NODE_ENV === 'production') ?
+    createStore(reducers, initialState) :
+    createStore(reducers, initialState, devToolsEnhancer({
       realtime: true,
       actionSanitizer(action) {
         // serialize Symbol
@@ -53,8 +55,7 @@ import App from './components/App';
           type: String(action.type).slice(7, -1),
         }) : action;
       },
-    })
-  );
+    }));
 
   ReactDOM.render(
     <Provider store={store}>
