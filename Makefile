@@ -48,7 +48,6 @@ lint: ## lint JavaScript
 .PHONY: minify
 minify: copy
 minify: export NODE_ENV := production
-minify: JSFLAGS += --optimize-minimize
 minify: ## minify JavaScript
 	$(JSC) $(JSFLAGS)
 
