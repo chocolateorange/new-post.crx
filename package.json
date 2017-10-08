@@ -1,7 +1,7 @@
 {
   "name": "new-post",
   "description": "create new post by GitHub",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "author": "sasa+1",
   "babel": {
     "presets": [

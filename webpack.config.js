@@ -94,6 +94,21 @@ module.exports = function(env) {
           name: 'vendor',
           minChunks: Infinity,
         }),
+      ].concat(
+        (isProduction) ? [
+          new webpack.EnvironmentPlugin([
+            'NODE_ENV',
+          ]),
+          new webpack.optimize.ModuleConcatenationPlugin(),
+          new UglifyJSPlugin({
+            exclude: /node_modules/,
+            parallel: {
+              cache: false,
+            },
+            test: /\.js$/,
+          }),
+        ] : []
+      ).concat([
         new webpack.BannerPlugin({
           banner: [
             '@license Copyright(c) 2017 sasa+1',
@@ -103,18 +118,7 @@ module.exports = function(env) {
           entryOnly: true,
           raw: false,
         }),
-      ].concat(
-        (isProduction) ? [
-          new webpack.EnvironmentPlugin([
-            'NODE_ENV',
-          ]),
-          new webpack.optimize.ModuleConcatenationPlugin(),
-          new UglifyJSPlugin({
-            test: /\.js$/,
-            parallel: true,
-          }),
-        ] : []
-      ),
+      ]),
       target: 'web',
     }),
   ];
